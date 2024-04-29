@@ -17,5 +17,8 @@
     - ```
         rabbitmq-plugins.bat list
         ```
+    - ```
+        rabbitmq-plugins.bat enable rabbitmq_management
+        ```
 
 
