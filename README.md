@@ -1,6 +1,10 @@
 # RabbitMQ-Python
 
-## Install RabbitMQ
+## How to use RabbitMQ Docker
+
+- docker run --rm -it --hostname my-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+
+## Install RabbitMQ Locally
 
 - install Erlang
     - https://www.erlang.org/downloads
@@ -13,3 +17,5 @@
     - ```
         rabbitmq-plugins.bat list
         ```
+
+
