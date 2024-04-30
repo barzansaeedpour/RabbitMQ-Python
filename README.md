@@ -21,4 +21,8 @@
         rabbitmq-plugins.bat enable rabbitmq_management
         ```
 
+## How to run 
+
+- from start menu, run RabbitMQ service - stop
+- from start menu, run RabbitMQ service - start
 
