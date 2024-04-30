@@ -16,16 +16,17 @@ import pika
 import json
 import uuid
 
-connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='localhost'))
-
+# Stablish the connection to RabbitMQ
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
+# declare the exchange
 channel.exchange_declare(
-    exchange='order',
-    exchange_type='direct'
+    exchange='order', # name of the exchange
+    exchange_type='direct' # the exchange type
 )
 
+# the message that we want to send
 order = {
     'id': str(uuid.uuid4()),
     'user_email': 'barzansaeedpour@gmail.com',
@@ -33,18 +34,24 @@ order = {
     'quantity': 1
 }
 
+
+# publish the messages
 channel.basic_publish(
-    exchange='order',
-    routing_key='order.notify',
-    body=json.dumps({'user_email': order['user_email']})
+    exchange='order',  # the exchange that we want to use
+    routing_key='order.notify', # the routing key
+    body=json.dumps({'user_email': order['user_email']}) # body of the message
 )
 
 print('[x] Sent notify message')
 
 channel.basic_publish(
-    exchange='order',
+    exchange='order', # the exchange that we want to use
     routing_key='order.report',
-    body=json.dumps(order)
+    body=json.dumps(order) # body of the message
 )
 
-connection.close()
+print('[x] Sent report message')
+
+
+# close the message
+connection.close() 

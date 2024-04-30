@@ -28,29 +28,35 @@
 
 ################################# Another example
 
-
 import pika
 import json
 
-connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='localhost'))
+
+# Stablish the connection to RabbitMQ
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
+# declare the queue
 queue = channel.queue_declare('order_notify')
 queue_name = queue.method.queue
 
+# bind the exchange to the queue 
 channel.queue_bind(
-    exchange='order',
-    queue=queue_name,
+    exchange='order', # the exchange
+    queue=queue_name, # the queue
     routing_key='order.notify' # binding key
 )
+
+# Consume the messages:
 
 def callback(ch, method, properties, body):
     payload = json.loads(body)
     print('[x] Notifying {}'.format(payload['user_email']))
     print('[x] Done')
+    # we will send an aknowledgement to RabbitMQ that we received the message, and RabbitMQ is free to delete the message
     ch.basic_ack(delivery_tag=method.delivery_tag)
-    
+
+
 channel.basic_consume(on_message_callback=callback, queue=queue_name)
 
 print(' [*] Waiting for messages. To exit press CTRL+C')
