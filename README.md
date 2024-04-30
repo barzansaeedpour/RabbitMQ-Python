@@ -1,5 +1,8 @@
 # RabbitMQ-Python
 
+In this repository the following scheme is implemented.
+
+![image](./scheme.png)
 
 ## Install RabbitMQ Locally
 
