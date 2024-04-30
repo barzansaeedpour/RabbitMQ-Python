@@ -1,8 +1,5 @@
 # RabbitMQ-Python
 
-## How to use RabbitMQ Docker
-
-- docker run --rm -it --hostname my-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
 
 ## Install RabbitMQ Locally
 
@@ -13,7 +10,7 @@
     - https://www.rabbitmq.com/docs/install-windows#downloads
 
 - list of RabbitMQ plugins
-    - run RabbitMQ command prompt 
+    - run RabbitMQ command prompt from start menu 
     - ```
         rabbitmq-plugins.bat list
         ```
@@ -23,6 +20,30 @@
 
 ## How to run 
 
+- ```
+    pip install pika
+    ```
+
 - from start menu, run RabbitMQ service - stop
 - from start menu, run RabbitMQ service - start
+- login to RabbitMQ from the browser: `localhost:15672`
+    - user: `guest`
+    - password: `guest`
+- open three different trminals:
 
+    - In consumer1_notify terminal:
+        ```
+        python consumer1_notify.py
+        ```
+    - In consumer2_report terminal:
+        ```
+        python consumer2_report.py
+        ```
+    - In publisher terminal:
+        ```
+        python publisher.py
+        ```
+
+## How to use RabbitMQ Docker Image
+
+- docker run --rm -it --hostname my-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
